@@ -19,18 +19,19 @@ we need:
 
 	Main.js
 		load modules
-		each module requires the components that it needs
-		if modules need to reference other instantiated modules, pass as function arg when its instantiated
+		all DOM interaction in here, listeners attached to relevant modules
+			keyboard input -> BeatBox
+			form creation -> settings
 
 	Input
 		listens for keyboard, emits it with standard name
 		currently only need tap
+		needs form component that generates controls
+		listens to them and emits changed event
 
 	Settings
-		needs form component that generates its controls
-		listens to them and emits changed event
-		stores them as values
-		some settings might not have a form representation
+		stores changed forms as values
+		has some settings without a form representation
 		ex: hitwindow timings
 
 	NodeManager:
@@ -48,12 +49,12 @@ we need:
 		holds nodes
 		has methods to perform operations on the graph
 
-	averager:
-		tracks avgDelta of all nodes and avgDelta of last n nodes
-		gets graph to trim history if the avgDelta of recent nodes is different than the whole history, thus starting fresh
-		gets unstable rate: node.delta - avgDelta (the ideal delta)
 
 	Statistics
+		averager:
+			tracks avgDelta of all nodes and avgDelta of last n nodes
+			gets graph to trim history if the avgDelta of recent nodes is different than the whole history, thus starting fresh
+			gets unstable rate: node.delta - avgDelta (the ideal delta)
 		tracks information used for display
 		avg bpm (derived from avgDelta)
 		avg unstable rate
