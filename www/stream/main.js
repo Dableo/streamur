@@ -1,15 +1,13 @@
 define(function(require){
 	"use strict";
-	var Settings = require('./settings'),
-		Stats = require('./stats'),
+	var Stats = require('./stats'),
 		BeatBox = require('./beatBox'),
 		Display = require('./display'),
 		Ready = require('documentReady');
 
 	var display = new Display();
-	var settings = new Settings();
-	var stats = new Stats(settings);
-	var beatBox = new BeatBox(stats);
+	var stats = new Stats();
+	var beatBox = new BeatBox();
 	//DOM interaction
 	var gameWindow = document.querySelector("#stream");
 	//game focus
