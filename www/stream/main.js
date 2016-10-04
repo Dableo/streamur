@@ -2,10 +2,10 @@ define(function(require){
 	"use strict";
 	var Stats = require('./stats'),
 		BeatBox = require('./beatBox'),
-		// Graph = require('./graph'),
+		Graph = require('./graph'),
 		Ready = require('documentReady');
 
-	// var graph = new Graph();
+	var graph = new Graph();
 	var stats = new Stats();
 	var beatBox = new BeatBox();
 
@@ -22,16 +22,21 @@ define(function(require){
 
 	Ready(function(){
 		var gameContainer = document.querySelector("#stream")
-		console.log("ready!");
-		document.body.appendChild(focus);
-		gameContainer.appendChild(gameGraph);
+
+		//hud
 		gameContainer.appendChild(gameHud);
+		stats.addView(gameHud);
+		//graph
+		gameContainer.appendChild(gameGraph);
+		graph.addView(gameGraph);
 		//focus
+		document.body.appendChild(focus);
 		focus.focus();
 		gameGraph.addEventListener('click',function(e){
 			focus.focus();
 		});
 		//beat input
 		focus.addEventListener('keydown', beatBox.addBeat);
+		console.log("ready!");
 	});
 });
