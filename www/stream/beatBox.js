@@ -2,6 +2,7 @@ define(["./beat", "eventEmitter"],function(Beat, EventEmitter){
 	"use strict";
 	function BeatBox() {
 		var ee = new EventEmitter(["beat"]);
+		this.addEventListener = ee.addListener;
 		var prevBeat = null;
 		var that = this;
 		this.addBeat = function(){

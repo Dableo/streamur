@@ -5,9 +5,10 @@ define(function(require){
 		Graph = require('./graph'),
 		Ready = require('documentReady');
 
-	var graph = new Graph();
 	var stats = new Stats();
+	var graph = new Graph();
 	var beatBox = new BeatBox();
+	beatBox.addEventListener('beat',stats.getBeat);
 
 	//DOM interaction
 	//graph container
