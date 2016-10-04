@@ -2,16 +2,15 @@ define(["./beat", "eventEmitter"],function(Beat, EventEmitter){
 	"use strict";
 	function BeatBox(Stats) {
 		var ee = new EventEmitter(["beat"]);
-		var beats = [];
+		var prevBeat = null;
 		var that = this;
 		this.addBeat = function(){
-			//get the last beat, null if it doesn't exist
 			//(beat() knows what to do with null)
-			var prevBeat = (beats.length === 0) ? null : beats[beats.length() - 1];
 			//get that new beat
-			var beat = new Beat(prevBeat, Stats.avgDelta());
+			var beat = new Beat(prevBeat);
 			ee.emit("beat", beat);
-			console.log(beat.timestamp());
+			console.log(beat.deltaTime());
+			prevBeat = beat;
 		};
 	}
 	return BeatBox;
