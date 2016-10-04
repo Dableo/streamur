@@ -1,6 +1,6 @@
 define(["./beat", "eventEmitter"],function(Beat, EventEmitter){
 	"use strict";
-	function BeatBox(Stats) {
+	function BeatBox() {
 		var ee = new EventEmitter(["beat"]);
 		var prevBeat = null;
 		var that = this;
