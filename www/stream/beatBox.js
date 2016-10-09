@@ -10,7 +10,7 @@ define(["./beat", "eventEmitter"],function(Beat, EventEmitter){
 			//(beat() knows what to do with null)
 			var beat = new Beat(prevBeat);
 			ee.emit("beat", beat);
-			console.log(beat.deltaTime());
+			// console.log(beat.deltaTime());
 			prevBeat = beat;
 		};
 	}
