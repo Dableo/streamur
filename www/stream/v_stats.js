@@ -18,8 +18,11 @@ define([],function(){
 			//update hud with current stats (every new beat)
 
 			bpmText.textContent = "BPM: "+Math.round(stats.bpm * 10)/10;
-			unstableRateText.textContent = "UR: "+stats.unstableRate;
+			unstableRateText.textContent = "UR: "+Math.round(stats.unstableRate * 100)/100;
 			comboText.textContent = "Combo: "+stats.combo;
+		}
+		this.updateBest = function(stats) {
+			
 		}
 	}
 	return v_Stats;

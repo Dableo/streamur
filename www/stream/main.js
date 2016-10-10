@@ -8,7 +8,7 @@ define(function(require){
 	var stats = new Stats();
 	var graph = new Graph();
 	var beatBox = new BeatBox();
-	beatBox.addEventListener('beat',stats.getBeat);
+	beatBox.addEventListener('beat',stats.readBeat);
 
 	//DOM interaction
 	//graph container
