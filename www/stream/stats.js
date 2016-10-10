@@ -80,7 +80,7 @@ define(["cyclicArray", "./v_stats", "./od"],function(CyclicArray, v_Stats, OD){
 					{label: "Combo", value: combo}
 				]);
 			} else {
-				console.logError("Error: stats doesn't have a functional view")
+				console.error("Error: stats doesn't have a functional view")
 			}
 		}
 		//RESET STATS
@@ -97,6 +97,8 @@ define(["cyclicArray", "./v_stats", "./od"],function(CyclicArray, v_Stats, OD){
 			// avgDelta = recentBeats.average();
 			avgDelta = 0;
 			recentBeats = new CyclicArray(historyLength);
+			console.log(recentBeats.average());
+			console.log(recentBeats.index());
 			//reset combo
 			combo = 0;
 			//unstable rate?

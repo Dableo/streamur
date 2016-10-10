@@ -7,6 +7,7 @@ define([],function(){
 		this.good = 79.5 - (goodInt * od);
 		this.bad = 139.5 - (badInt * od);
 		this.miss = 199.5 - (missInt * od);
+		this.pad = 80 -  (goodInt * od);
 	}
 	return OD;
 });
