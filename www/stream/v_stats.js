@@ -16,7 +16,8 @@ define([],function(){
 		
 		this.update = function(stats) {
 			//update hud with current stats (every new beat)
-			bpmText.textContent = "BPM: "+stats.bpm;
+
+			bpmText.textContent = "BPM: "+Math.round(stats.bpm * 10)/10;
 			unstableRateText.textContent = "UR: "+stats.unstableRate;
 			comboText.textContent = "Combo: "+stats.combo;
 		}

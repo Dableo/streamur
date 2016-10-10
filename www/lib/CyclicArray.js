@@ -19,7 +19,7 @@ define([],function(){
 		//ignore first beat
 		if(index !== -1) {
 			arr[index] = item;
-			console.log(index+": "+item);
+			// console.log(index+": "+item);
 		}
 		if(++index >= maxLength) {
 			index = 0;

@@ -8,7 +8,7 @@ define(["cyclicArray", "./v_stats"],function(CyclicArray, v_Stats){
 		//number of notes per tick of bpm (eg: 1/4 time)
 		var bpmTime = 4;
 		//delta leniency before resetting
-		var leniency = 5;
+		var leniency = 7;
 		var view;
 		var historyLength = 8;
 		var recentBeats = new CyclicArray(historyLength);
@@ -49,7 +49,7 @@ define(["cyclicArray", "./v_stats"],function(CyclicArray, v_Stats){
 					avgBPM = deltaToBPM(avgDelta, bpmTime);
 				}
 				view.update({
-					bpm: avgDelta,
+					bpm: avgBPM,
 					unstableRate: unstableRate,
 					combo: combo
 				});
