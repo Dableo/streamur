@@ -1,4 +1,4 @@
-define(["cyclicArray", "./v_stats"],function(CyclicArray, v_Stats){
+define(["cyclicArray", "./v_stats", "./od"],function(CyclicArray, v_Stats, OD){
 	"use strict";
 	function deltaToBPM(delta, bpmTime = 1) {
 		var avgBeatMinute = delta / 60000;
@@ -9,7 +9,7 @@ define(["cyclicArray", "./v_stats"],function(CyclicArray, v_Stats){
 		//number of notes per tick of bpm (eg: 1/4 time)
 		this.bpmTime = 4;
 		//delta leniency before resetting
-		this.leniency = 10;
+		this.leniency = new OD(11).good;
 		//view module
 		var view;
 		//recent beats recorded to determine changes in bpm
@@ -37,19 +37,24 @@ define(["cyclicArray", "./v_stats"],function(CyclicArray, v_Stats){
 		}
 		//called when beat is created
 		this.readBeat = function(beat) {
-			//update avgDelta
-			var totalDelta = avgDelta * combo;
-			avgDelta = (totalDelta + beat.deltaTime())/(combo + 1)
 			
-			//update UR only if not first note
-			if(combo != 0) {
-				//ur = avg time off from ideal delta (* 10 for some reason)
-				var totalUR = unstableRate * combo;
-				unstableRate = (totalUR + 10 * Math.abs(beat.deltaTime() - avgDelta))/(combo + 1);
+			if(beat.deltaTime() != 0) {
+				//update avgDelta
+				var totalDelta = avgDelta * combo;
+				avgDelta = (totalDelta + beat.deltaTime())/(combo + 1)
+				
+				//update UR only if not first note
+				if(combo != 0) {
+					//ur = avg time off from ideal delta (* 10 for some reason)
+					var totalUR = unstableRate * combo;
+					unstableRate = (totalUR + 10 * Math.abs(beat.deltaTime() - avgDelta))/(combo + 1);
+				}
+				//record the beat (the first one is ignored)
+				recentBeats.push(beat.deltaTime());
+				//increase combo
+				combo++;		
 			}
-			//increase combo
-			combo++;
-			
+
 			//don't do this if we've just started
 			if(recentBeats.isFull()) {
 				//check if recent beatDelta average differs from avgDelta
@@ -58,8 +63,6 @@ define(["cyclicArray", "./v_stats"],function(CyclicArray, v_Stats){
 					that.breakCombo();		
 				} 
 			}
-			//record the beat (the first one is ignored)
-			recentBeats.push(beat.deltaTime());
 
 			//display our stuff
 			that.updateView();

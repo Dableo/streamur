@@ -1,5 +1,5 @@
 define([],function(){
-	var index = -1;
+	var index = 0;
 	var maxLength = 16;
 	var arr = [];
 	CyclicArray = function(history) {
@@ -9,18 +9,19 @@ define([],function(){
 			for (var i = 0; i < arr.length; i++) {
 				total += arr[i];
 			}
-			return total/arr.length;
+			if(arr.length > 0)
+				return total/arr.length;
+			else
+				return 0;
 		}
 		this.isFull = function() {
-			return (arr.length = maxLength);
+			return (arr.length == maxLength);
 		}
+		this.index = function() {return index};
 	}
 	CyclicArray.prototype.push = function(item) {
-		//ignore first beat
-		if(index !== -1) {
-			arr[index] = item;
-			// console.log(index+": "+item);
-		}
+		arr[index] = item;
+		// console.log(index+": "+item);
 		if(++index >= maxLength) {
 			index = 0;
 		}

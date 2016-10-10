@@ -1,4 +1,7 @@
 div#gameWindow {
-	min-height: 20rem;
-	background: black;
+	background-color: #fffaec;
+	line-height: 0;
+}
+#gameWindow svg {
+
 }
