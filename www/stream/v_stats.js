@@ -1,28 +1,33 @@
-define([],function(){
+define(["d3"],function(d3){
 	function v_Stats(node) {
-		//create and place stat text fields
-		var bpmText = document.createElement("p");
-		bpmText.textContent = "BPM: ";
-		var unstableRateText = document.createElement("p");
-		unstableRateText.textContent = "UR: ";
-		var comboText = document.createElement("p");
-		comboText.textContent = "Combo: ";
+		var node = node;
 
-		var nodeArr = [bpmText, unstableRateText, comboText];
-		for (var i = 0; i < nodeArr.length; i++) {
-		 	nodeArr[i].classList.add('stream-stats');
-			node.appendChild(nodeArr[i]);	
-		}
-		
-		this.update = function(stats) {
-			//update hud with current stats (every new beat)
+		//update
+		var stat = d3.select(node).selectAll("label")
+			.data([
+				{label: "BPM", value: 0},
+				{label: "Unstable Rate", value: 0},
+				{label: "Combo", value: 0}
+			]);
+		//enter
+		stat.enter().append("label")
+			.text(function(d) { return d.label })
+			.attr("for", function(d) {return d.label})
+				.append("input")
+				.attr("readonly", '')
+				.attr("name", function(d) {return d.label})
+				.attr("value", function(d) {return d.value});
+		//exit
+		stat.exit().remove();
 
-			bpmText.textContent = "BPM: "+Math.round(stats.bpm * 10)/10;
-			unstableRateText.textContent = "UR: "+Math.round(stats.unstableRate * 100)/100;
-			comboText.textContent = "Combo: "+stats.combo;
+		this.update = function(data) {
+			//update hud with current data (every new beat)
+			d3.select(node).selectAll("label").data(data)
+				.select("input")
+				.attr("value", function(d) {return Math.round(d.value)});
 		}
-		this.updateBest = function(stats) {
-			
+		this.updateBest = function(data) {
+
 		}
 	}
 	return v_Stats;

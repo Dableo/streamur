@@ -21,7 +21,7 @@ define(["cyclicArray", "./v_stats"],function(CyclicArray, v_Stats){
 		//getter in case we need it later
 		this.get = function() {
 			return {
-				avgBPM: deltaToBPM(avgDelta,that.bpmTime),
+				avgBPM: deltaToBPM(recentBeats.average(),that.bpmTime),
 				unstableRate: unstableRate,
 				combo: combo
 			}
@@ -67,15 +67,15 @@ define(["cyclicArray", "./v_stats"],function(CyclicArray, v_Stats){
 		//update view
 		this.updateView = function() {
 			if(view !== null) {
-				var avgBPM = 0;
-				if(avgDelta !== 0) {
-					avgBPM = deltaToBPM(avgDelta, that.bpmTime);
-				}
-				view.update({
-					bpm: avgBPM,
-					unstableRate: unstableRate,
-					combo: combo
-				});
+				// var avgBPM = 0;
+				// if(avgDelta !== 0) {
+				// 	avgBPM = deltaToBPM(recentBeats.average(), that.bpmTime);
+				// }
+				view.update([
+					{label: "BPM", value: that.get().avgBPM},
+					{label: "Unstable Rate", value: unstableRate},
+					{label: "Combo", value: combo}
+				]);
 			} else {
 				console.logError("Error: stats doesn't have a functional view")
 			}
@@ -87,11 +87,13 @@ define(["cyclicArray", "./v_stats"],function(CyclicArray, v_Stats){
 			 	//record the record
 				that.best.combo = combo;
 				that.best.unstableRate = unstableRate;
-				that.best.avgBPM = deltaToBPM(avgDelta, that.bpmTime);
+				that.best.avgBPM = that.avgBPM;
 			 	view.updateBest(this.best);
 			}
 			//set avg to recent average
-			avgDelta = recentBeats.average();
+			// avgDelta = recentBeats.average();
+			avgDelta = 0;
+			recentBeats = new CyclicArray(historyLength);
 			//reset combo
 			combo = 0;
 			//unstable rate?
