@@ -50,7 +50,7 @@ define(["cyclicArray", "./v_stats", "./od"],function(CyclicArray, v_Stats, OD){
 					unstableRate = (totalUR + 10 * Math.abs(beat.deltaTime() - avgDelta))/(combo + 1);
 				}
 				//record the beat (the first one is ignored)
-				recentBeats.push(beat.deltaTime());
+				recentBeats.add(beat.deltaTime());
 				//increase combo
 				combo++;		
 			}
@@ -97,8 +97,6 @@ define(["cyclicArray", "./v_stats", "./od"],function(CyclicArray, v_Stats, OD){
 			// avgDelta = recentBeats.average();
 			avgDelta = 0;
 			recentBeats = new CyclicArray(historyLength);
-			console.log(recentBeats.average());
-			console.log(recentBeats.index());
 			//reset combo
 			combo = 0;
 			//unstable rate?
